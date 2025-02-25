@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A Special Question</title>
+    <style>
+        body {
+            background: linear-gradient(to bottom right, #ffdee9, #b5fffc);
+            font-family: 'Arial', sans-serif;
+            text-align: center;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            position: relative;
+        }
+
+        h1 {
+            color: #ff4081;
+            font-size: 30px;
+            font-weight: bold;
+        }
+
+        p {
+            color: #444;
+            font-size: 18px;
+            width: 80%;
+            max-width: 500px;
+            margin-bottom: 20px;
+        }
+
+        .btn {
+            background: #ff4081;
+            color: white;
+            padding: 12px 30px;
+            font-size: 18px;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.2s;
+            margin: 10px;
+        }
+
+        .btn:hover {
+            transform: scale(1.1);
+        }
+
+        .no-btn {
+            background: #ff80ab;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .bold {
+            font-weight: bold;
+            color: #ff4081;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Main Page -->
+    <div id="main-page">
+        <h1>I have a question for you... 💭</h1>
+        <p>Life is full of moments, but some feel more special than others. You're one of those moments for me. So, I have to ask...</p>
+        <h2>Will you go on an adventure with me, Nimisha!?</h2>
+
+        <button class="btn" onclick="recordChoice('Yes', 'yes-page')">Yes! 😊</button>
+        <button class="btn no-btn" onclick="recordChoice('No', 'no-page')">Maybe Later... 🤔</button>
+
+        <p id="previous-choice"></p>
+    </div>
+
+    <!-- Yes Page -->
+    <div id="yes-page" class="hidden">
+        <h1>Yay! I'm so happy! 🎉</h1>
+        <p>You just made my day! I can't wait for all the fun, laughter, and memories we'll create together.</p>
+        <p class="bold">By the way, your answer did not reach the user. Kindly WhatsApp them your response! 😜</p>
+        <button class="btn" onclick="showPage('surprise-page')">Continue 💖</button>
+    </div>
+
+    <!-- No Page -->
+    <div id="no-page" class="hidden">
+        <h1>Oh no... 😢</h1>
+        <p>Okay, I respect your choice... but are you sure? Maybe we can try this again? 😉</p>
+        <p class="bold">Also, your answer did not reach the user. So... maybe just WhatsApp them instead? 😏</p>
+        <button class="btn" onclick="showPage('main-page')">Try Again? 🤗</button>
+    </div>
+
+    <!-- Surprise Page -->
+    <div id="surprise-page" class="hidden">
+        <h1>Well... That’s Interesting! 🤔</h1>
+        <p>
+            So, you've reached the final page. But let’s be honest... If you’re here, it means you're either too curious,  
+            too indecisive, or you’re looking for some deep hidden message. 😏<br><br>
+            Don't worry, the universe already knows the right answer (and so does the user, probably).
+            <br><br>
+            Now go ahead, **WhatsApp your answer**, because apparently, this page isn’t sending it. 🤷‍♂️
+        </p>
+    </div>
+
+    <script>
+        function recordChoice(choice, pageId) {
+            // Store choice in Local Storage (remembers even after closing browser)
+            localStorage.setItem("userChoice", choice);
+
+            // Redirect to the selected page
+            showPage(pageId);
+        }
+
+        function showPage(pageId) {
+            // Hide all pages
+            document.getElementById('main-page').classList.add('hidden');
+            document.getElementById('yes-page').classList.add('hidden');
+            document.getElementById('no-page').classList.add('hidden');
+            document.getElementById('surprise-page').classList.add('hidden');
+
+            // Show the selected page
+            document.getElementById(pageId).classList.remove('hidden');
+        }
+
+        // Load previous choice when the page opens
+        window.onload = function() {
+            let previousChoice = localStorage.getItem("userChoice");
+            if (previousChoice) {
+                document.getElementById("previous-choice").innerText = "Last time, you chose: " + previousChoice;
+            }
+        };
+    </script>
+
+</body>
+</html>
